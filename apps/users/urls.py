@@ -15,7 +15,5 @@ Including another URLconf
 """
 from django.conf.urls import url
 
-
 urlpatterns = [
-    # url(r'^/$', user_register, name='user_register'),
 ]

@@ -22,4 +22,5 @@ urlpatterns = [
     url(r'^courses/', include(('courses.urls', 'users'), namespace='courses')),
     url(r'^orgs/', include(('orgs.urls', 'users'), namespace='orgs')),
     url(r'^operations/', include(('operations.urls', 'users'), namespace='operations')),
+    url(r'^ueditor/', include('DjangoUeditor.urls')),
 ]
