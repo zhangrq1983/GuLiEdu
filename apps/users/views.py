@@ -1,5 +1,5 @@
 from django.shortcuts import render
 
 
-def user_register(request):
-    pass
+def index(request):
+    return render(request, 'index.html')

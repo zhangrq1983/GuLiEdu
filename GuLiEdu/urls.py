@@ -16,14 +16,15 @@ Including another URLconf
 from django.conf.urls import url, include
 # from django.contrib import admin
 from django.urls import path
-
+from users.views import index
 import xadmin
 
 urlpatterns = [
-    path('xadmin/', xadmin.site.urls),
+    url('xadmin/', xadmin.site.urls),
     url(r'^users/', include(('users.urls', 'users'), namespace='users')),
     url(r'^courses/', include(('courses.urls', 'users'), namespace='courses')),
     url(r'^orgs/', include(('orgs.urls', 'users'), namespace='orgs')),
     url(r'^operations/', include(('operations.urls', 'users'), namespace='operations')),
     url(r'^ueditor/', include('DjangoUeditor.urls')),
+    url(r'$', index, name='index')
 ]
