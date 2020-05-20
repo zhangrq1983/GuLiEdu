@@ -92,3 +92,28 @@ def user_active(request, code):
             pass
     else:
         pass
+
+
+def user_forget(request):
+    if request.method == 'GET':
+        user_forget_form = UserForgetForm()
+        return render(request, 'forgetpwd.html', {
+            'user_forget_form': user_forget_form
+        })
+    else:
+        user_forget_form = UserForgetForm(request.POST)
+        if user_forget_form.is_valid():
+            email = user_forget_form.cleaned_data['email']
+            user_list = UserProfile.objects.filter(email=email)
+            if user_list:
+                send_email_code(email, 2)
+                return HttpResponse('请尽快去您的邮箱去重置密码')
+            else:
+                return render(request, 'forgetpwd.html', {
+                    'msg': '用户不存在',
+                    'user_forget_form': user_forget_form
+                })
+        else:
+            return render(request, 'forgetpwd.html', {
+                'user_forget_form': user_forget_form
+            })
