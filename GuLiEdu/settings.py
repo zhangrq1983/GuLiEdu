@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     'DjangoUeditor',
     'xadmin',
     'crispy_forms',
-    # 'captcha',
+    'captcha',
 ]
 AUTH_USER_MODEL = 'users.UserProfile'
 
@@ -138,3 +138,11 @@ STATICFILES_DIRS = [
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+EMAIL_HOST = 'smtp.163.com'
+EMAIL_PORT = 25
+EMAIL_HOST_USER = 'zhangrongqianglo@163.com'
+EMAIL_HOST_PASSWORD = '111111'
+EMAIL_FROM = 'zhangrongqianglo@163.com'
+
+

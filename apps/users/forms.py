@@ -1,5 +1,5 @@
 from django import forms
-# from captcha.fields import CaptchaField
+from captcha.fields import CaptchaField
 from .models import UserProfile, EmailVerifyCode
 
 
@@ -10,7 +10,7 @@ class UserRegisterForm(forms.Form):
         'min_length': '密码至少3位',
         'max_length': '密码不能超过15位'
     })
-    # captcha = CaptchaField()
+    captcha = CaptchaField()
 
 
 class UserLoginForm(forms.Form):
@@ -24,7 +24,7 @@ class UserLoginForm(forms.Form):
 
 class UserForgetForm(forms.Form):
     email = forms.EmailField(required=True)
-    # captcha = CaptchaField()
+    captcha = CaptchaField()
 
 
 class UserResetForm(forms.Form):

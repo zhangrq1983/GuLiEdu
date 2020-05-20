@@ -20,7 +20,8 @@ from users.views import index
 import xadmin
 
 urlpatterns = [
-    url('xadmin/', xadmin.site.urls),
+    url(r'xadmin/', xadmin.site.urls),
+    url(r'captcha/', include('captcha.urls')),
     url(r'^users/', include(('users.urls', 'users'), namespace='users')),
     url(r'^courses/', include(('courses.urls', 'users'), namespace='courses')),
     url(r'^orgs/', include(('orgs.urls', 'users'), namespace='orgs')),

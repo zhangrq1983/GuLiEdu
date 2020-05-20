@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect, reverse, HttpResponse
 from .forms import *
 from .models import UserProfile, EmailVerifyCode, BannerInfo
-# from tools.send_mail_tool import send_email_code
+from tools.send_mail_tool import send_email_code
 from django.db.models import Q
-from django.contrib.auth import authenticate,logout,login
+from django.contrib.auth import authenticate, logout, login
+from django.core.mail import send_mail
+
 
 def index(request):
     return render(request, 'index.html')
@@ -11,7 +13,8 @@ def index(request):
 
 def user_register(request):
     if request.method == 'GET':
-        return render(request, 'register.html')
+        user_register_form = UserRegisterForm()
+        return render(request, 'register.html', {'user_register_form': user_register_form})
     else:
         user_register_form = UserRegisterForm(request.POST)
         if user_register_form.is_valid():
@@ -30,9 +33,9 @@ def user_register(request):
                 a.set_password(password)
                 a.email = email
                 a.save()
-                # send_email_code(email, 1)
-                # return HttpResponse('请尽快前往您的邮箱激活，否则无法登陆')
-                return redirect(reverse('index'))
+                send_email_code(email, 1)
+                return HttpResponse('请尽快前往您的邮箱激活，否则无法登陆')
+                # return redirect(reverse('index'))
         else:
             # return render(request, 'users/register.html', {
             return render(request, 'register.html', {
@@ -51,8 +54,11 @@ def user_login(request):
 
             user = authenticate(username=username, password=password)
             if user:
-                login(request, user)
-                return redirect(reverse('index'))
+                if user.is_start:
+                    login(request, user)
+                    return redirect(reverse('index'))
+                else:
+                    return HttpResponse('请去您的邮箱激活，否则无法登陆')
             else:
                 return render(request, 'login.html', {
                     'msg': '邮箱或密码有误'
@@ -61,3 +67,28 @@ def user_login(request):
             return render(request, 'login.html', {
                 'user_login_form': user_login_form
             })
+
+
+def user_logout(request):
+    logout(request)
+    return redirect(reverse('index'))
+
+
+def user_active(request, code):
+    if code:
+        email_ver_list = EmailVerifyCode.objects.filter(code=code)
+        if email_ver_list:
+            email_ver = email_ver_list[0]
+            email = email_ver.email
+            user_list = UserProfile.objects.filter(username=email)
+            if user_list:
+                user = user_list[0]
+                user.is_start = True
+                user.save()
+                return redirect(reverse('users:user_login'))
+            else:
+                pass
+        else:
+            pass
+    else:
+        pass
