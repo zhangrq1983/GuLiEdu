@@ -117,3 +117,41 @@ def user_forget(request):
             return render(request, 'forgetpwd.html', {
                 'user_forget_form': user_forget_form
             })
+
+
+def user_reset(request, code):
+    if code:
+        if request.method == 'GET':
+            return render(request, 'password_reset.html', {
+                'code': code
+            })
+        else:
+            user_reset_form = UserResetForm(request.POST)
+            if user_reset_form.is_valid():
+                password = user_reset_form.cleaned_data['password']
+                password1 = user_reset_form.cleaned_data['password1']
+                if password == password1:
+                    email_ver_list = EmailVerifyCode.objects.filter(code=code)
+                    if email_ver_list:
+                        email_ver = email_ver_list[0]
+                        email = email_ver.email
+                        user_list = UserProfile.objects.filter(email=email)
+                        if user_list:
+                            user = user_list[0]
+                            user.set_password(password1)
+                            user.save()
+                            return redirect(reverse('users:user_login'))
+                        else:
+                            pass
+                    else:
+                        pass
+                else:
+                    return render(request, 'password_reset.html', {
+                        'msg': '两次密码步一致',
+                        'code': code
+                    })
+            else:
+                return render(request, 'password_reset.html', {
+                    'user_reset_form': user_reset_form,
+                    'code': code
+                })

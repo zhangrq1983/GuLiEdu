@@ -23,9 +23,9 @@ urlpatterns = [
     url(r'xadmin/', xadmin.site.urls),
     url(r'captcha/', include('captcha.urls')),
     url(r'^users/', include(('users.urls', 'users'), namespace='users')),
-    url(r'^courses/', include(('courses.urls', 'users'), namespace='courses')),
-    url(r'^orgs/', include(('orgs.urls', 'users'), namespace='orgs')),
-    url(r'^operations/', include(('operations.urls', 'users'), namespace='operations')),
+    url(r'^courses/', include(('courses.urls', 'courses'), namespace='courses')),
+    url(r'^orgs/', include(('orgs.urls', 'orgs'), namespace='orgs')),
+    url(r'^operations/', include(('operations.urls', 'operations'), namespace='operations')),
     url(r'^ueditor/', include('DjangoUeditor.urls')),
     url(r'$', index, name='index')
 ]
