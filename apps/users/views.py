@@ -14,7 +14,7 @@ def index(request):
 def user_register(request):
     if request.method == 'GET':
         user_register_form = UserRegisterForm()
-        return render(request, 'register.html', {'user_register_form': user_register_form})
+        return render(request, 'users/register.html', {'user_register_form': user_register_form})
     else:
         user_register_form = UserRegisterForm(request.POST)
         if user_register_form.is_valid():
@@ -37,7 +37,6 @@ def user_register(request):
                 return HttpResponse('请尽快前往您的邮箱激活，否则无法登陆')
                 # return redirect(reverse('index'))
         else:
-            # return render(request, 'users/register.html', {
             return render(request, 'users/register.html', {
                 'user_register_form': user_register_form
             })

@@ -82,7 +82,7 @@ def org_detail_course(request, org_id):
         all_courses = org.courseinfo_set.all()
 
         lovestatus = False
-        if request.user.is_authenticated():
+        if request.user.is_authenticated:
             love = UserLove.objects.filter(love_man=request.user, love_id=int(org_id), love_type=1, love_status=True)
             if love:
                 lovestatus = True
@@ -109,7 +109,7 @@ def org_detail_desc(request, org_id):
         org = OrgInfo.objects.filter(id=int(org_id))[0]
 
         lovestatus = False
-        if request.user.is_authenticated():
+        if request.user.is_authenticated:
             love = UserLove.objects.filter(love_man=request.user, love_id=int(org_id), love_type=1, love_status=True)
             if love:
                 lovestatus = True
@@ -126,7 +126,7 @@ def org_detail_teacher(request, org_id):
         org = OrgInfo.objects.filter(id=int(org_id))[0]
 
         lovestatus = False
-        if request.user.is_authenticated():
+        if request.user.is_authenticated:
             love = UserLove.objects.filter(love_man=request.user, love_id=int(org_id), love_type=1, love_status=True)
             if love:
                 lovestatus = True

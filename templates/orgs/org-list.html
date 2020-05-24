@@ -56,7 +56,7 @@
                     <dt>
                         <a href="{% url 'orgs:org_detail' org.id %}">
                             <img width="200" height="120" class="scrollLoading" data-url="{{ MEDIA_URL }}{{ org.image }}"/>
-{#                        </a>#}
+                        </a>
                     </dt>
                     <dd>
                         <div class="clearfix">
@@ -69,15 +69,14 @@
                                          <img src="{% static 'images/gold.png' %}"/>
 
                                  </div>
-{#                             </a>#}
+                             </a>
                         </div>
                         <ul class="cont">
                             <li class="first"><p class="pic9">课程数：<span>{{ org.course_num }}</span></p><p class="c7">学习人数：<span>{{ org.study_num }}</span></p></li>
                             <li class="c8" style="padding-left:18px;">{{ org.address }}</li>
                             <li class="pic10" style="padding-left:18px;">经典课程：
                                 {% for course in org.courseinfo_set.all|slice:":2" %}
-                                    <a href="/diary/19/">{{ course.name }}</a>
-{#                                    <a href="{% url 'courses:course_detail' course.id %}">{{ course.name }}</a>#}
+                                    <a href="{% url 'courses:course_detail' course.id %}">{{ course.name }}</a>
                                 {% endfor %}
 
                             </li>
@@ -139,6 +138,9 @@
                     </dd>
                 </dl>
             {% endfor %}
+
+
+
 		</div>
         </div>
 </section>
@@ -181,4 +183,3 @@
         })
     </script>
 {% endblock %}
-

@@ -53,7 +53,7 @@ def course_detail(request, course_id):
         # lovecourse和loveorg 用来存储用户收藏这个东西的状态，在模板当中根据这个状态来确定页面加载时候，显示的是收藏还是取消收藏
         lovecourse = False
         loveorg = False
-        if request.user.is_authenticated():
+        if request.user.is_authenticated:
             love = UserLove.objects.filter(love_id=int(course_id), love_type=2, love_status=True, love_man=request.user)
             if love:
                 lovecourse = True
