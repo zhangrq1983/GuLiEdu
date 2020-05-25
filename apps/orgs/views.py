@@ -180,7 +180,7 @@ def teacher_detail(request, teacher_id):
 
         loveteacher = False
         loveorg = False
-        if request.user.is_authenticated():
+        if request.user.is_authenticated:
             love = UserLove.objects.filter(love_id=int(teacher_id), love_type=3, love_status=True,
                                            love_man=request.user)
             if love:
