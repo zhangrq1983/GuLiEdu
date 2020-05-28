@@ -29,3 +29,6 @@ urlpatterns = [
     url(r'^ueditor/', include('DjangoUeditor.urls')),
     url(r'$', index, name='index')
 ]
+
+handler404 = 'users.views.handler_404'
+handler500 = 'users.views.handler_500'
