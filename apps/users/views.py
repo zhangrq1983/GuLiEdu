@@ -370,8 +370,8 @@ def user_deletemessage(request):
         return JsonResponse({'status': 'fail', 'msg': '读取失败'})
 
 
-def handler_404(request, exception, template_name='handler_404.html'):
-    return render(request, template_name)
+def handler_404(request, exception):
+    return render(request, 'handler_404.html')
 
 
 def handler_500(request):
